@@ -16,3 +16,6 @@ class Settings:
         self.h_cell = 30
 
         self.background_color = (0, 0, 0)
+
+        # активность игры
+        self.game_active = True

@@ -26,8 +26,14 @@ class Screen:
     # Функция перерисовки экрана
     def screen_game(self):
         self.screen.fill(self.background_color)
-        self.handle_state_data()
+        self.delete_grid()
         return self.screen
+
+    def delete_grid(self):
+        if self.settings.game_active:
+            self.handle_state_data()
+
+        # pygame.display.update()
 
     # Функция отрисовки сетки
     def handle_grid(self):
