@@ -18,4 +18,4 @@ class Settings:
         self.background_color = (0, 0, 0)
 
         # активность игры
-        self.game_active = True
+        self.game_active = False

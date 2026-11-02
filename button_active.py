@@ -6,6 +6,8 @@ class ButtonActive:
         self.screen = screen
         self.screen_rect = self.screen.get_rect()
 
+        print(f"screen в button_active: {self.screen}")
+
         # атрибуты кнопки
         self.button_width = 300
         self.button_height = 50
@@ -27,6 +29,6 @@ class ButtonActive:
         self.msg_image_rect.center = self.rect.center
 
     def draw_button(self):
-        # отрисовывает кнопку
+        # отрисовывает кнопку и текст кнопки
         self.screen.fill(self.button_color, self.rect)
         self.screen.blit(self.msg_image, self.msg_image_rect)

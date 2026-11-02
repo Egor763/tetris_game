@@ -25,13 +25,13 @@ class Screen:
 
     # Функция перерисовки экрана
     def screen_game(self):
-        self.screen.fill(self.background_color)
+        # self.screen.fill(self.background_color)
         self.delete_grid()
         return self.screen
 
     def delete_grid(self):
         if self.settings.game_active:
-            self.handle_state_data()
+            self.handle_grid()
 
         # pygame.display.update()
 
@@ -40,44 +40,6 @@ class Screen:
         color = (59, 59, 59)
         y = self.y_start_area
         x = self.x_start_area
-
-        while y < self.y_end_area:
-            pygame.draw.line(
-                self.screen,
-                color,
-                (self.x_start_area, y),
-                (self.x_end_area + 2, y),
-                1,
-            )
-
-            y = y + self.h_cell
-
-        while x < self.x_end_area + 2:
-            pygame.draw.line(
-                self.screen,
-                color,
-                (x, self.y_start_area),
-                (x, self.y_end_area),
-                1,
-            )
-
-            x = x + self.w_cell
-
-    # Функция отработки данных
-    def handle_state_data(self):
-        self.handle_grid()
-
-        self.score_text = self.font.render("Счет", True, self.text_color)
-        self.level_text = self.font.render("Уровень", True, self.text_color)
-        self.blocks_text = self.font.render("Блоков", True, self.text_color)
-        self.high_score_text = self.font.render("Лучший счет", True, self.text_color)
-        self.next = self.font.render("Следующий", True, self.text_color)
-
-        self.screen.blit(self.score_text, [550, self.y_start_area])
-        self.screen.blit(self.level_text, [530, 70])
-        self.screen.blit(self.blocks_text, [535, 120])
-        self.screen.blit(self.high_score_text, [495, 180])
-        self.screen.blit(self.next, [495, 350])
 
         pygame.draw.line(
             self.screen,
@@ -103,4 +65,42 @@ class Screen:
             2,
         )
 
-        pygame.display.update()
+        while y < self.y_end_area:
+            pygame.draw.line(
+                self.screen,
+                color,
+                (self.x_start_area, y),
+                (self.x_end_area + 2, y),
+                1,
+            )
+
+            y = y + self.h_cell
+
+        while x < self.x_end_area + 2:
+            pygame.draw.line(
+                self.screen,
+                color,
+                (x, self.y_start_area),
+                (x, self.y_end_area),
+                1,
+            )
+
+            x = x + self.w_cell
+
+    # Функция отработки данных
+    def handle_state_data(self):
+        # self.handle_grid()
+
+        self.score_text = self.font.render("Счет", True, self.text_color)
+        self.level_text = self.font.render("Уровень", True, self.text_color)
+        self.blocks_text = self.font.render("Блоков", True, self.text_color)
+        self.high_score_text = self.font.render("Лучший счет", True, self.text_color)
+        self.next = self.font.render("Следующий", True, self.text_color)
+
+        self.screen.blit(self.score_text, [550, self.y_start_area])
+        self.screen.blit(self.level_text, [530, 70])
+        self.screen.blit(self.blocks_text, [535, 120])
+        self.screen.blit(self.high_score_text, [495, 180])
+        self.screen.blit(self.next, [495, 350])
+
+        # pygame.display.update()
