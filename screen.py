@@ -29,13 +29,14 @@ class Screen:
         self.delete_grid()
         return self.screen
 
+    # Функция удаления сетки (вызывается при завершении игры)
     def delete_grid(self):
         if self.settings.game_active:
             self.handle_grid()
 
         # pygame.display.update()
 
-    # Функция отрисовки сетки
+    # Функция отрисовки сетки (вызывается при запуске игры)
     def handle_grid(self):
         color = (59, 59, 59)
         y = self.y_start_area

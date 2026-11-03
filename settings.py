@@ -19,3 +19,11 @@ class Settings:
 
         # активность игры
         self.game_active = False
+
+        self.current_block = {
+            "num": 7,
+            "position": True,
+            "coord": [170, 10],
+            "cells_block": (0, 0),
+            "count_block_screen": 0,
+        }

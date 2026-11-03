@@ -4,6 +4,7 @@ from settings import Settings
 from screen import Screen
 from button_active import ButtonActive
 from button_inactive import ButtonInactive
+from blocks import Blocks
 
 
 class Tetris:
@@ -19,11 +20,11 @@ class Tetris:
         self.screen_class = Screen(self.screen)
         self.button_active_class = ButtonActive(self.screen, "Завершить игру")
         self.button_inactive_class = ButtonInactive(self.screen, "Играть")
+        self.blocks = Blocks(self.screen)
 
         self.screen_class.screen_game()
 
-        # self.screen_class.handle_state_data()
-
+        # self._draw_squares()
         pygame.display.set_caption("Тетрис")
 
     def run_game(self):
@@ -68,6 +69,7 @@ class Tetris:
                 # если игра активна отрисовываются игровое поле, данные и кнопка "Завершить игру"
                 self.screen_class.handle_grid()
                 self.button_active_class.draw_button()
+                self._draw_squares()
 
             else:
                 # если игра неактивна отрисовываются данные и кнопка "Играть"
@@ -100,6 +102,10 @@ class Tetris:
 
         if button_clicked and not self.settings.game_active:
             self._start_game()
+
+    def _draw_squares(self):
+        if self.settings.game_active:
+            self.blocks.draw_figurs()
 
 
 if __name__ == "__main__":
