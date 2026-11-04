@@ -5,6 +5,7 @@ from screen import Screen
 from button_active import ButtonActive
 from button_inactive import ButtonInactive
 from blocks import Blocks
+from move_blocks import MoveBlocks
 
 
 class Tetris:
@@ -21,8 +22,18 @@ class Tetris:
         self.button_active_class = ButtonActive(self.screen, "Завершить игру")
         self.button_inactive_class = ButtonInactive(self.screen, "Играть")
         self.blocks = Blocks(self.screen)
+        self.move_blocks = MoveBlocks(self.screen)
 
         self.screen_class.screen_game()
+
+        self.USEREVENT = pygame.USEREVENT
+        self.delay_time = 300
+        pygame.time.set_timer(self.USEREVENT, self.delay_time)
+
+        self.h_cell = self.settings.h_cell
+        self.current_block = self.settings.current_block
+        self.key_button = self.settings.key_button
+        self.coords_blocks = self.settings.coords_blocks
 
         # self._draw_squares()
         pygame.display.set_caption("Тетрис")
@@ -31,8 +42,7 @@ class Tetris:
         self.screen_class.screen_game()
 
         while True:
-            # скорость цикла while
-            self.clock.tick(60)
+
             self.screen.fill(self.settings.background_color)
             self.screen_class.handle_state_data()
             for event in pygame.event.get():
@@ -70,12 +80,19 @@ class Tetris:
                 self.screen_class.handle_grid()
                 self.button_active_class.draw_button()
                 self._draw_squares()
+                if event.type == self.USEREVENT and not bool(self.key_button):
+                    self.current_block["coord"][1] += self.h_cell
+                    print(self.current_block["coord"])
+                    # self.move_blocks.move_down_block(self.coords_blocks)
 
             else:
                 # если игра неактивна отрисовываются данные и кнопка "Играть"
                 self.button_inactive_class.draw_inactive_button()
 
             pygame.display.flip()
+
+            # скорость цикла while
+            self.clock.tick(60)
 
     def _exit_game(self):
         # функция выхода из игры

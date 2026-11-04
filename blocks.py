@@ -25,8 +25,8 @@ class Blocks:
             self.screen,
             self.green,
             (
-                self.settings.x_start_area + (4 * self.w_cell),
-                self.settings.y_start_area,
+                self.settings.current_block["coord"][0],
+                self.settings.current_block["coord"][1],
                 self.w_cell,
                 self.h_cell,
             ),

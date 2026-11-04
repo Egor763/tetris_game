@@ -27,3 +27,7 @@ class Settings:
             "cells_block": (0, 0),
             "count_block_screen": 0,
         }
+
+        self.key_button = ""
+
+        self.coords_blocks = {}
