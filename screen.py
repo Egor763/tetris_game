@@ -25,8 +25,8 @@ class Screen:
 
     # Функция перерисовки экрана
     def screen_game(self):
-        # self.screen.fill(self.background_color)
-        self.delete_grid()
+        self.screen.fill(self.background_color)
+        self.handle_state_data()
         return self.screen
 
     # Функция удаления сетки (вызывается при завершении игры)
@@ -41,30 +41,6 @@ class Screen:
         color = (59, 59, 59)
         y = self.y_start_area
         x = self.x_start_area
-
-        pygame.draw.line(
-            self.screen,
-            self.color_main_lines,
-            (self.vert_line_x_left, self.y_start_area),
-            (self.vert_line_x_left, self.y_end_area),
-            2,
-        )
-
-        pygame.draw.line(
-            self.screen,
-            self.color_main_lines,
-            (self.x_start_area, self.y_end_area),
-            (self.x_end_area, self.y_end_area),
-            2,
-        )
-
-        pygame.draw.line(
-            self.screen,
-            self.color_main_lines,
-            (self.vert_line_x_right, self.y_start_area),
-            (self.vert_line_x_right, self.y_end_area),
-            2,
-        )
 
         while y < self.y_end_area:
             pygame.draw.line(
@@ -103,5 +79,29 @@ class Screen:
         self.screen.blit(self.blocks_text, [535, 120])
         self.screen.blit(self.high_score_text, [495, 180])
         self.screen.blit(self.next, [495, 350])
+
+        pygame.draw.line(
+            self.screen,
+            self.color_main_lines,
+            (self.vert_line_x_left, self.y_start_area),
+            (self.vert_line_x_left, self.y_end_area),
+            2,
+        )
+
+        pygame.draw.line(
+            self.screen,
+            self.color_main_lines,
+            (self.x_start_area, self.y_end_area),
+            (self.x_end_area, self.y_end_area),
+            2,
+        )
+
+        pygame.draw.line(
+            self.screen,
+            self.color_main_lines,
+            (self.vert_line_x_right, self.y_start_area),
+            (self.vert_line_x_right, self.y_end_area),
+            2,
+        )
 
         # pygame.display.update()

@@ -6,6 +6,9 @@ from button_active import ButtonActive
 from button_inactive import ButtonInactive
 from blocks import Blocks
 from move_blocks import MoveBlocks
+from cube import Cube
+from game_active import GameActive
+from game_inactive import GameInactive
 
 
 class Tetris:
@@ -23,6 +26,9 @@ class Tetris:
         self.button_inactive_class = ButtonInactive(self.screen, "Играть")
         self.blocks = Blocks(self.screen)
         self.move_blocks = MoveBlocks(self.screen)
+        self.cube = Cube()
+        self.game_active_class = GameActive(self.screen, "Завершить игру")
+        self.game_inactive_class = GameInactive(self.screen, "Играть")
 
         self.screen_class.screen_game()
 
@@ -33,15 +39,14 @@ class Tetris:
         self.h_cell = self.settings.h_cell
         self.current_block = self.settings.current_block
         self.key_button = self.settings.key_button
-        self.coords_blocks = self.settings.coords_blocks
 
         # self._draw_squares()
         pygame.display.set_caption("Тетрис")
 
     def run_game(self):
-        self.screen_class.screen_game()
 
         while True:
+            self.screen_class.screen_game()
 
             self.screen.fill(self.settings.background_color)
             self.screen_class.handle_state_data()
@@ -76,18 +81,15 @@ class Tetris:
                         self._check_play_inactive_button(mouse_pos_inactive_button)
 
             if self.settings.game_active:
-                # если игра активна отрисовываются игровое поле, данные и кнопка "Завершить игру"
-                self.screen_class.handle_grid()
-                self.button_active_class.draw_button()
+                # если игра активна вызывается класс game_active
+                self.game_active_class.screen_active()
                 self._draw_squares()
                 if event.type == self.USEREVENT and not bool(self.key_button):
-                    self.current_block["coord"][1] += self.h_cell
-                    print(self.current_block["coord"])
-                    # self.move_blocks.move_down_block(self.coords_blocks)
+                    self.game_active_class.set_timer()
 
             else:
-                # если игра неактивна отрисовываются данные и кнопка "Играть"
-                self.button_inactive_class.draw_inactive_button()
+                # если игра неактивна вызывается класс game_inactive
+                self.game_inactive_class.screen_inactive()
 
             pygame.display.flip()
 

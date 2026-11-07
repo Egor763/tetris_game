@@ -14,11 +14,13 @@ class MoveBlocks:
         self.h_cell = self.settings.h_cell
         self.current_block = self.settings.current_block
 
+    # Функция изменения координат (пока только print)
     def change_coord(self, initial_coord):
         print(initial_coord)
         # y = initial_coord + self.h_cell
         # return y
 
+    # Функция с помощью которой блок будет двигаться вниз
     def move_down_block(self, coords_blocks):
         self.coords_blocks = coords_blocks
         self.blocks.draw_figurs()
