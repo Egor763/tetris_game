@@ -18,7 +18,7 @@ class Settings:
         self.background_color = (0, 0, 0)
 
         # активность игры
-        self.game_active = False
+        self.game_active = True
 
         self.current_block = {
             "num": 7,

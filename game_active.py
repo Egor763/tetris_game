@@ -18,14 +18,19 @@ class GameActive:
         self.h_cell = self.settings.h_cell
         self.key_button = self.settings.key_button
 
+        self.USEREVENT = pygame.USEREVENT
+        self.delay_time = 300
+        pygame.time.set_timer(self.USEREVENT, self.delay_time)
+
     def screen_active(self):
         self.screen_class.handle_grid()
         self.button_active_class.draw_button()
         self.draw_squares()
 
-    def set_timer(self):
-        self.current_block["coord"][1] += self.h_cell
-        print(self.current_block["coord"][1])
+    def set_timer(self, event):
+        if event.type == self.USEREVENT and not bool(self.key_button):
+            self.current_block["coord"][1] += self.h_cell
+            print(self.current_block["coord"][1])
 
     def draw_squares(self):
         if self.settings.game_active:

@@ -9,6 +9,9 @@ from move_blocks import MoveBlocks
 from cube import Cube
 from game_active import GameActive
 from game_inactive import GameInactive
+from exit_game import ExitGame
+from start_game import StartGame
+from mousebuttondown_events import MousebuttondownEvents
 
 
 class Tetris:
@@ -29,18 +32,16 @@ class Tetris:
         self.cube = Cube()
         self.game_active_class = GameActive(self.screen, "Завершить игру")
         self.game_inactive_class = GameInactive(self.screen, "Играть")
+        self.exit_game = ExitGame(self.screen)
+        self.start_game = StartGame(self.screen)
+        self.mousebuttondown_events = MousebuttondownEvents(self.screen)
 
         self.screen_class.screen_game()
-
-        self.USEREVENT = pygame.USEREVENT
-        self.delay_time = 300
-        pygame.time.set_timer(self.USEREVENT, self.delay_time)
 
         self.h_cell = self.settings.h_cell
         self.current_block = self.settings.current_block
         self.key_button = self.settings.key_button
 
-        # self._draw_squares()
         pygame.display.set_caption("Тетрис")
 
     def run_game(self):
@@ -62,30 +63,23 @@ class Tetris:
                     if self.settings.game_active:
                         # * выход из игры при нажатии на кнопку i
                         if event.key == pygame.K_i:
-                            self._exit_game()
+                            # self._exit_game()
+                            self.exit_game.game_over()
 
                     else:
                         # * запуск игры при нажатии на пробел
                         if event.key == pygame.K_RETURN:
-                            self._start_game()
+                            self.start_game.game_launch()
 
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.button_active_class.rect.collidepoint(event.pos):
-                        mouse_pos = pygame.mouse.get_pos()
-                        self._check_play_button(mouse_pos)
-
-                    elif self.button_inactive_class.rect_inactive.collidepoint(
-                        event.pos
-                    ):
-                        mouse_pos_inactive_button = pygame.mouse.get_pos()
-                        self._check_play_inactive_button(mouse_pos_inactive_button)
+                    self.mousebuttondown_events.set_listener(event)
 
             if self.settings.game_active:
                 # если игра активна вызывается класс game_active
                 self.game_active_class.screen_active()
-                self._draw_squares()
-                if event.type == self.USEREVENT and not bool(self.key_button):
-                    self.game_active_class.set_timer()
+                self.game_active_class.draw_squares()
+
+                self.game_active_class.set_timer(event)
 
             else:
                 # если игра неактивна вызывается класс game_inactive
@@ -95,36 +89,6 @@ class Tetris:
 
             # скорость цикла while
             self.clock.tick(60)
-
-    def _exit_game(self):
-        # функция выхода из игры
-        self.settings.game_active = False
-
-        self.screen_class.delete_grid()
-
-    def _start_game(self):
-        # функция запуска игры
-        self.settings.game_active = True
-
-        self.screen_class.handle_grid()
-
-    def _check_play_button(self, mouse_pos):
-        button_clicked = self.button_active_class.rect.collidepoint(mouse_pos)
-
-        if button_clicked and self.settings.game_active:
-            self._exit_game()
-
-    def _check_play_inactive_button(self, mouse_pos_inactive_button):
-        button_clicked = self.button_inactive_class.rect_inactive.collidepoint(
-            mouse_pos_inactive_button
-        )
-
-        if button_clicked and not self.settings.game_active:
-            self._start_game()
-
-    def _draw_squares(self):
-        if self.settings.game_active:
-            self.blocks.draw_figurs()
 
 
 if __name__ == "__main__":
