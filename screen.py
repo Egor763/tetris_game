@@ -103,5 +103,3 @@ class Screen:
             (self.vert_line_x_right, self.y_end_area),
             2,
         )
-
-        # pygame.display.update()
